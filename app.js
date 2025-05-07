@@ -17,6 +17,8 @@ app.use(express.json())
 // Application routes
 app.use('/api', require('./routes/tasks.routes'))
 
+// Error handling middleware
+app.use(require('./middleware/errorHandler'))
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server is running at ${HOST}:${PORT} in ${MODE} mode`.bgGreen)
