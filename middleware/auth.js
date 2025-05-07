@@ -1,4 +1,4 @@
-const ErrorResponse = require('../utils/errorResponse')
+const ErrorResponse = require('../utils/ErrorResponse')
 const isAuth = (req, res, next) => {
   const token = req?.headers?.authorization?.split(' ')[1]
 
