@@ -46,8 +46,20 @@ exports.addTask = async (req, res) => {
   // Check if title and description are provided
   if (!title) throw new ErrorResponse(400, 'Title is required')
   if (!description) throw new ErrorResponse(400, 'Description is required')
+
+  // Create a task Object
+  // const task = {
+  //   id: uuid(),
+  //   title,
+  //   description,
+  //   isCompleted: isCompleted || false,
+  //   createdAt: new Date(),
+  //   priority: priority || 'low',
+  // }
+
   const task = new Task(title, description)
   // Add task to data array
+  // data.push(task)
   task.add()
 
   // Send success response
@@ -64,12 +76,28 @@ exports.addTask = async (req, res) => {
 //  @ACCESS Private
 // ----------------------------------------
 exports.updateTask = async (req, res) => {
-  const data = Task.updateById(req.params.taskId, req.body)
+  // const taskId = req.params.taskId
+  // const { title, description, isCompleted, priority } = req.body
+
+  Task.updateById(req.params.taskId, req.body)
+  // validate the id
+  // if (taskId.length !== 36) throw new ErrorResponse(400, 'Invalid task id')
+
+  // Find task index in data array
+  // const taskIndex = data.findIndex((task) => task.id === taskId)
+  // if (taskIndex === -1)
+  //   throw new ErrorResponse(404, `Task not found with id ${taskId}`)
+
+  //update the task data
+  // data[taskIndex].title = title ?? data[taskIndex].title
+  // data[taskIndex].description = description ?? data[taskIndex].description
+  // data[taskIndex].isCompleted = isCompleted ?? data[taskIndex].isCompleted
+  // data[taskIndex].priority = priority ?? data[taskIndex].priority
 
   // Sending a success response
   res.status(200).json({
     success: true,
-    data,
+    data: data[taskIndex],
     message: 'Task updated successfully',
   })
 }
@@ -81,6 +109,17 @@ exports.updateTask = async (req, res) => {
 // ----------------------------------------
 exports.deleteTask = async (req, res) => {
   const taskId = req.params.taskId
+
+  // validate the id
+  // if (taskId.length !== 36) throw new ErrorResponse(400, 'Invalid task id')
+
+  // Find task index in data array
+  // const taskIndex = data.findIndex((task) => task.id === taskId)
+  // if (taskIndex === -1)
+  //   throw new ErrorResponse(404, `Task not found with id ${taskId}`)
+
+  // Delete task from data array
+  // data.splice(taskIndex, 1)
   Task.deleteById(taskId)
   // Sending a success response
   res.status(200).json({
