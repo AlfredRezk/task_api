@@ -1,5 +1,6 @@
 // Import/require express.Js and other packages
 const express = require('express')
+
 require('dotenv').config()
 require('colors')
 
@@ -13,6 +14,13 @@ const MODE = process.env.MODE || 'production'
 
 // Middlewares
 app.use(express.json())
+// app.use(require('./middleware/logger'))
+
+if (MODE === 'development') app.use(require('morgan')('dev'))
+else {
+  app.use(require('./middleware/logger'))
+  app.use(require('morgan')('combined'))
+}
 
 // Application routes
 app.use('/api', require('./routes/tasks.routes'))
